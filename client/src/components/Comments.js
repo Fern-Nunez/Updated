@@ -4,8 +4,10 @@ import { makeRequest } from "../axios";
 import { AuthContext } from "../context/authContext";
 import { useContext } from 'react';
 import moment from 'moment';
-import { Image, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import PostPfp from './PostPfp';
+import DeleteComment from './DeleteComment';
+import { Link } from 'react-router-dom';
 
 
 function Comments({ postId }) {
@@ -16,7 +18,9 @@ function Comments({ postId }) {
   return res.data;
   })
 );
+
   return (
+    
   <div>
     {error
       ? "Something went wrong"
@@ -33,9 +37,18 @@ function Comments({ postId }) {
 
               <div>
                 <Stack className='vertical'>
-                  <Stack direction="horizontal">
-                    <span style={{fontWeight: "bold", fontSize: "15px"}}>{comment.name}</span>
-                    <span className="date" style={{marginLeft: "4px"}}> {moment(comment.dateCreated).fromNow()} </span>
+                  <Stack direction="horizontal" gap={2}>
+                    <div>
+                      <Link to={`/profile/${comment.username}`} style={{textDecoration: "none", color: "inherit"}}>
+                        <span style={{fontWeight: "bold", fontSize: "15px"}}>{comment.name}</span>
+                      </Link>
+                      <span className="date" style={{marginLeft: "4px"}}> {moment(comment.dateCreated).fromNow()} </span>
+                    </div>
+                    {currentUser.id === comment.userId && (
+                    <div style={{position: "absolute", marginLeft: "650px", marginTop: "3px"}}>
+                      <DeleteComment commentId={comment.id}/>
+                    </div>
+                    )}
                   </Stack>
                   <div>
                     <p>{comment.commentDesc}</p>

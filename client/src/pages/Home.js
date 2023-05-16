@@ -12,9 +12,15 @@ import "../css/Background.css";
 import moment from "moment";
 import Comment from "../components/Comment";
 import Comments from "../components/Comments";
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
+import DeletePost from "../components/DeletePost";
+import LikeChecker from "../components/LikeChecker";
+
 //import Axios from "axios"
 
 function Home() {
+    const { currentUser } = useContext(AuthContext);
     //makes api request to getposts of users added as friends onto current users main feed
     //allows posts to be loading as new posts are updated, no need for refreshing pages
     const { isLoading, error, data } = useQuery(['posts'], () =>
@@ -70,9 +76,16 @@ function Home() {
                                  style={{ padding: '2%', paddingBottom: '.5%' }} />
                             )
                         }
-                        <div style={{marginLeft: "15px"}}>
-                            <i className="fa-solid fa-heart"/>
-                        </div>
+                        <Stack direction='horizontal' gap={3}>
+                            <div style={{paddingLeft: "15px"}}>
+                                <LikeChecker postId={post.id}/>
+                            </div>
+                        {currentUser.id === post.userId && (
+                            <DeletePost postId={post.id}/>
+                        )}
+                        </Stack>
+
+
                         <div style={{padding: "15px", paddingTop: "5px", paddingBottom: "5px"}}>
                             <p style={{fontSize: "20px"}}> {post.postDesc} </p>
                         </div>

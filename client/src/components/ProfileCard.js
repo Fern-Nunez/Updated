@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import  { makeRequest } from "../axios";
 import ClipItNav from './ClipItNav';
 import { useParams } from 'react-router-dom';
+import FriendCheck from './FriendCheck';
 
 function ProfileCard () {
     const { currentUser } = useContext(AuthContext);
@@ -65,13 +66,7 @@ function ProfileCard () {
                                 style = {{padding: "0.3% 5.5%", float: "right", margin: "14% 0% 0%"}}
                                 role="button">Edit Profile
                                 </Button> :
-                                <Button 
-                                className="btn btn-dark btn-sm border border-white" 
-                                type="button" 
-                                href="#" 
-                                style = {{padding: "0.3% 5.5%", float: "right", margin: "14% 0% 0%"}}
-                                role="button">Add Friend
-                                </Button>
+                                <FriendCheck friendId={data?.id}/>
                             }
                                                          
                         </div>
@@ -93,7 +88,7 @@ function ProfileCard () {
                                     className="btn btn-dark btn-sm border" 
                                     type="button" 
                                     href={`/friends/${data?.id}`}
-                                    style = {{padding: "1% 20%", float: "right", margin: "5% 1%", width: "146px"}}
+                                    style = {{padding: "1% 20%", float: "right", margin: "5% 1%", width: "170px"}}
                                     role="button">Friends
                                     </Button>
                                 </div> 

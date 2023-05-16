@@ -30,10 +30,9 @@ function Friends() {
   return(
     <>
       <ClipItNav/>
-      <div className="custom-bg-container"/>
-      <div> 
-      </div>
+      <div className="custom-bg-container" style={{marginTop: "-20px"}}/>
       <div className=" text-center" style={{backgroundColor: "white", width: "900px", margin: "auto", fontSize: "30px", fontWeight: "bold", marginTop: "50px", padding: "10px", borderRadius: "10px"}}> Friends
+       of {userId}
       <div style={{marginRight: "800px"}}> 
         <Button className=" btn btn-dark btn-sm" href={`/profile/${currentUser.username}`} style={{width: "880px"}}> My Profile </Button>
       </div>

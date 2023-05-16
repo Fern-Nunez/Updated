@@ -10,6 +10,8 @@ import moment from "moment";
 import { useParams } from 'react-router-dom';
 import Comments from './Comments';
 import Comment from './Comment';
+import DeletePost from './DeletePost';
+import LikeChecker from './LikeChecker';
 
 
 
@@ -59,10 +61,14 @@ function ProfilePosts () {
                                  style={{ padding: '2%', paddingBottom: '.5%' }} />
                             )
                         }
-
-                        <div style={{marginLeft: "15px"}}>
-                            <i className="fa-solid fa-heart"/>
-                        </div>
+                        <Stack direction='horizontal' gap={3}>
+                            <div style={{paddingLeft: "15px"}}>
+                                <LikeChecker postId={post.id}/>
+                            </div>
+                            {currentUser.id === post.userId && (
+                                <DeletePost postId={post.id}/>
+                            )}
+                        </Stack>
 
                         <div style={{padding: "15px", paddingTop: "5px", paddingBottom: "5px"}}>
                             <Card.Title>{post.postDesc}</Card.Title> 
